@@ -3,5 +3,5 @@ Design Log
 
 MTA/Subway Sim - like Railroad Tycoon except you control when trains shut down, whether to fix them, etc
 
-MTA/Subway Quest - travel around the city and run errands while using the MTA. Difficult because we need art.
+MTA/Subway Quest - travel around the city and run errands while using the MTA. Difficult because we need so much art. And think about whether or not you want to do collision detection! So much work if we do this. Definitely make this simpler.
 
