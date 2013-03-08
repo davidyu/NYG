@@ -28,6 +28,8 @@ Ticket Officer
 Final verdict: Ticketing Officer, because it's simple (good for the 24h time
 constraint) and fun (very accessible).
 
+Pivot: You're a policeman trying to catch a perp who escapes via the subway, among other things.
+
 
 Implementation
 --------------
@@ -35,3 +37,10 @@ Implementation
 - thinking of using GMaps wrapper for Google Maps.
     - necessarily means we're using the CreateJS framework and working on HTML5.
     - (because Google Maps API for Flash is deprecated)
+- start by getting GMaps API Key
+    - up to 25,000 accesses per day. Limit this to server (Node) accesses.
+    - 24 * 60 * 60 seconds per day. 0.2 accesses per second or one access every
+      five seconds
+    - Node needs to access traffic data and call map routing and get subway info (?)
+- forget about a server and do everything client-sided. Extend to server later.
+- write walk and subway objects to do those functions. Those are the mostimportant.
