@@ -60,9 +60,18 @@ Bits and pieces of game logic that must work (pay a lot of attention here)
     - get some Google routing API calls and cache them locally for testing when there isn't an Internet connection.
 - Download and understand NY subway system times. CSV reader for JavaScript.
 - Simulate subway entites.
+  - Simulate only those that are "live" right now.
 - Design and implement simple AI to avoid and follow other people.
+- Implement variable-time system with step MULTIPLIER/FACTOR
+- Finish simulating subway entites on train and work on simulating taxis
 
 Notes
 -----
 
-Decouple rendering from updating so 2 hrs on train can be productive.
+- Decouple rendering from updating so 2 hrs on train can be productive.
+- 
+
+Postmortem
+----------
+
+- I need to learn basic DB concepts. Without my good friend Ben the coolest part of this prototype would never have happened.
