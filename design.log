@@ -61,7 +61,6 @@ Bits and pieces of game logic that must work (pay a lot of attention here)
 - Download and understand NY subway system times. CSV reader for JavaScript.
 - Simulate subway entites.
   - Simulate only those that are "live" right now.
-- Design and implement simple AI to avoid and follow other people.
 - Implement variable-time system with step MULTIPLIER/FACTOR
 - Finish simulating subway entites on train and work on simulating taxis
 

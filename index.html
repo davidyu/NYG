@@ -18,12 +18,13 @@
         <script src="js/jquery-1.9.1.min.js"></script>
         <script src="js/jquery.csv-0.71.min.js"></script>
         <script src="js/createjs-2013.02.12.min.js"></script>
+        <script src="data/subs.js"></script>
         <script src="js/date.js"></script>
         <script src="js/constants.js"></script>
         <script src="js/utils.js"></script>
         <script src="js/game.js"></script>
         <script>
-            //Game.init();
+            Game.init(subs);
             Game.run( Util, null, Constants,
             {
                 map : null,

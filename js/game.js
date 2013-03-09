@@ -17,9 +17,30 @@ var Game = {
     paused : false,
     trains : [],
     activeTrains : [],
-    ticks : 0, //in seconds start at 00:00:00
+    allTrains : [],
+    ticks : 0.0, //in seconds start at 00:00:00
     step : 1/60, //60 fps
     timeMultiplier : 10, //10x real time
+
+    init : function( trains ) {
+
+        for ( t in trains ) {
+            
+            var train = trains[t];
+            trains[t].nextStop = 1;
+            trains[t].lastStop = 0;
+            trains[t].lat = trains[t].s[trains[t].lastStop].lat;
+            trains[t].lng = trains[t].s[trains[t].lastStop].lng;
+
+            if ( trains[t].s[trains[t].nextStop].t >= Game.ticks &&
+                 trains[t].s[trains[t].lastStop].t <= Game.ticks) {
+                trains[t].uuid = t;
+                Game.activeTrains.push(trains[t]);
+            }
+
+            Game.allTrains.push( trains[t] );
+        }
+    },
 
     run : function( Util, Render, Constants, options ) {
         
@@ -60,10 +81,13 @@ var Game = {
         if ( !Game.paused ) {
 
             //update time
-            Game.ticks += Game.timeMultiplier;
+            Game.ticks += dt * Game.timeMultiplier;
             Game.ticks = Game.ticks % C.SECONDS_IN_DAY; //rollover
 
             //update subway locations
+            for ( t in Game.activeTrains ) {
+                Game.updateTrain( t );
+            }
 
             //update criminal location
 
@@ -75,6 +99,46 @@ var Game = {
 
     togglePause: function() {
         Game.paused = !Game.paused;
+    },
+
+    updateTrain: function( t ) {
+
+        //remove unused trains
+        if ( Game.activeTrains[t].s[ Game.activeTrains[t].nextStop ].t < Game.ticks ) {
+            Game.recycleTrain( Game.activeTrains[t].uuid );
+            Game.activeTrains.splice( t, 1 ); //remove me from list of active trains
+            return;
+        }
+
+        //interpolate train positions
+
+        var p = U.percentRemaining(Game.ticks - Game.activeTrains[t].s[Game.activeTrains[t].lastStop].t,
+                                   Game.activeTrains[t].s[Game.activeTrains[t].nextStop].t - Game.activeTrains[t].s[Game.activeTrains[t].lastStop].t);
+
+        //hopefully this is not buggy...
+        Game.activeTrains[t].lat = Math.round( U.interpolate( Game.activeTrains[t].s[Game.activeTrains[t].lastStop].lat,
+                                                              Game.activeTrains[t].s[Game.activeTrains[t].nextStop].lat,
+                                                              p ) );
+        Game.activeTrains[t].lng = Math.round( U.interpolate( Game.activeTrains[t].s[Game.activeTrains[t].lastStop].lng,
+                                                              Game.activeTrains[t].s[Game.activeTrains[t].nextStop].lng,
+                                                              p ) );
+
+        if ( Game.ticks >= Game.activeTrains[t].s[Game.activeTrains[t].nextStop].t ) {
+            Game.activeTrains[t].nextStop++;
+            Game.activeTrains[t].lastStop++;
+        }
+        
+        if ( t == 0) {
+            console.log( p );
+            //console.log( Game.activeTrains[t].lat + "," + Game.activeTrains[t].lng);
+        }
+    },
+
+    //use the train later
+    recycleTrain : function( t ) {
+        for ( st in Game.allTrains[t].s ) {
+            Game.allTrains[t].s[st].t += Constants.RECYCLE_INTERVAL;
+        }
     },
 
     setKeyListener: function( keys ) {
