@@ -52,6 +52,16 @@ var Util = {
         var min2 = x2 - ( w2*half );
         var max2 = x2 + ( w2*half );
         return ! ( ( max1 < min2 ) || ( min1 > max2 ) );
+    },
+
+    secondsToTime : function( t )
+    {
+        var secs = t % 60;
+        t = (t - secs) / 60;
+        var mins = t % 60;
+        var hrs = (t - mins) / 60;
+
+        return hrs + ':' + mins + ':' + secs;
     }
 }
 

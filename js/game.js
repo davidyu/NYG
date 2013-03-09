@@ -16,6 +16,9 @@ var Game = {
     paused : false,
     trains : [],
     activeTrains : [],
+    time : 0, //in seconds start at 00:00:00
+    step : 1/60, //60 fps
+    timeMultiplier : 10, //10x real time
 
     run : function( Util, Render, options ) {
         
@@ -51,7 +54,9 @@ var Game = {
     },
 
     update: function( dt ) {
-        if ( !paused ) {
+        if ( !this.paused ) {
+            this.time += timeMultiplier;
+            this.time = this.time % Constants.SECONDS_IN_DAY; //rollover
             //update subway locations
 
             //update criminal location
