@@ -1,6 +1,7 @@
 
 var U = {};
 var R = {};
+var C = {};
 
 var Officer = {
 
@@ -16,14 +17,15 @@ var Game = {
     paused : false,
     trains : [],
     activeTrains : [],
-    time : 0, //in seconds start at 00:00:00
+    ticks : 0, //in seconds start at 00:00:00
     step : 1/60, //60 fps
     timeMultiplier : 10, //10x real time
 
-    run : function( Util, Render, options ) {
+    run : function( Util, Render, Constants, options ) {
         
         U = Util;
         R = Render;
+        C = Constants;
 
         var map    = options.map,
             update = options.update,
@@ -54,9 +56,13 @@ var Game = {
     },
 
     update: function( dt ) {
-        if ( !this.paused ) {
-            this.time += timeMultiplier;
-            this.time = this.time % Constants.SECONDS_IN_DAY; //rollover
+
+        if ( !Game.paused ) {
+
+            //update time
+            Game.ticks += Game.timeMultiplier;
+            Game.ticks = Game.ticks % C.SECONDS_IN_DAY; //rollover
+
             //update subway locations
 
             //update criminal location
@@ -68,7 +74,7 @@ var Game = {
     },
 
     togglePause: function() {
-        paused = !paused;
+        Game.paused = !Game.paused;
     },
 
     setKeyListener: function( keys ) {

@@ -23,7 +23,15 @@
         <script src="js/utils.js"></script>
         <script src="js/game.js"></script>
         <script>
-            Game.run( Util, null, {} );
+            //Game.init();
+            Game.run( Util, null, Constants,
+            {
+                map : null,
+                render : null,
+                update : Game.update,
+                step : Game.step
+
+            } );
         </script>
         <!--
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBr9Y82pPJEZ5zBtBvA4lZHCvxZiO1N3-M&sensor=false"></script>
