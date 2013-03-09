@@ -30,6 +30,12 @@ constraint) and fun (very accessible).
 
 Pivot: You're a policeman trying to catch a perp who escapes via the subway, among other things.
 
+Name log
+--------
+
+Manhattan Chase
+
+
 
 Implementation
 --------------
@@ -43,4 +49,20 @@ Implementation
       five seconds
     - Node needs to access traffic data and call map routing and get subway info (?)
 - forget about a server and do everything client-sided. Extend to server later.
-- write walk and subway objects to do those functions. Those are the mostimportant.
+- write walk and subway objects to do those functions. Those are the most important.
+
+Internal design (don't pay too much attention)
+- how to write avoidance and chase component?
+    - 
+
+Bits and pieces of game logic that must work (pay a lot of attention here)
+- Get markers and get them moving on screen.
+    - get some Google routing API calls and cache them locally for testing when there isn't an Internet connection.
+- Download and understand NY subway system times. CSV reader for JavaScript.
+- Simulate subway entites.
+- Design and implement simple AI to avoid and follow other people.
+
+Notes
+-----
+
+Decouple rendering from updating so 2 hrs on train can be productive.
