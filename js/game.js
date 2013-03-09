@@ -14,6 +14,8 @@ var Criminal = {
 var Game = {
 
     paused : false,
+    trains : [],
+    activeTrains : [],
 
     run : function( Util, Render, options ) {
         
@@ -50,7 +52,13 @@ var Game = {
 
     update: function( dt ) {
         if ( !paused ) {
+            //update subway locations
 
+            //update criminal location
+
+            //update criminal logic
+
+            //update player location
         }
     },
 
