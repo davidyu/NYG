@@ -103,6 +103,11 @@ var Game = {
 
     updateTrain: function( t ) {
 
+        if ( Game.ticks >= Game.activeTrains[t].s[Game.activeTrains[t].nextStop].t  && Game.activeTrains[t].s.length > Game.activeTrains[t].nextStop ) {
+            Game.activeTrains[t].nextStop++;
+            Game.activeTrains[t].lastStop++;
+        }
+
         //remove unused trains
         if ( Game.activeTrains[t].s[ Game.activeTrains[t].nextStop ].t < Game.ticks ) {
             Game.recycleTrain( Game.activeTrains[t].uuid );
@@ -122,15 +127,11 @@ var Game = {
         Game.activeTrains[t].lng = Math.round( U.interpolate( Game.activeTrains[t].s[Game.activeTrains[t].lastStop].lng,
                                                               Game.activeTrains[t].s[Game.activeTrains[t].nextStop].lng,
                                                               p ) );
-
-        if ( Game.ticks >= Game.activeTrains[t].s[Game.activeTrains[t].nextStop].t ) {
-            Game.activeTrains[t].nextStop++;
-            Game.activeTrains[t].lastStop++;
-        }
         
-        if ( t == 0) {
-            console.log( p );
-            //console.log( Game.activeTrains[t].lat + "," + Game.activeTrains[t].lng);
+        //debug
+        if ( t == 0 ) {
+            //console.log( p + " to stop " + Game.activeTrains[t].nextStop );
+            console.log( Game.activeTrains[t].lat + "," + Game.activeTrains[t].lng);
         }
     },
 
